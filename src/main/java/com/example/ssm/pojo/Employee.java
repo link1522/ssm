@@ -5,17 +5,17 @@ public class Employee {
 
     private String name;
 
-    private String address;
+    private String email;
 
     private Integer departmentId;
 
     public Employee() {
     }
 
-    public Employee(Integer id, String name, String address, Integer departmentId) {
+    public Employee(Integer id, String name, String email, Integer departmentId) {
         this.id = id;
         this.name = name;
-        this.address = address;
+        this.email = email;
         this.departmentId = departmentId;
     }
 
@@ -35,12 +35,12 @@ public class Employee {
         this.name = name == null ? null : name.trim();
     }
 
-    public String getAddress() {
-        return address;
+    public String getEmail() {
+        return email;
     }
 
-    public void setAddress(String address) {
-        this.address = address == null ? null : address.trim();
+    public void setEmail(String email) {
+        this.email = email == null ? null : email.trim();
     }
 
     public Integer getDepartmentId() {
