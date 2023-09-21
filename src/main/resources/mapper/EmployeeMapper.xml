@@ -1,12 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.ssm.mapper.EmployeeMapper">
+  <!-- 
+    =========
+    resultMap
+    =========
+   -->
   <resultMap id="BaseResultMap" type="com.example.ssm.pojo.Employee">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="department_id" jdbcType="INTEGER" property="departmentId" />
   </resultMap>
+  <resultMap id="WithDepartmentResultMap" type="com.example.ssm.pojo.Employee">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="department_id" jdbcType="INTEGER" property="departmentId" />
+    <association 
+      property="department"
+      javaType="Department"
+      select="com.example.ssm.mapper.DepartmentMapper.selectByPrimaryKey"
+      column="department_id"
+    >
+      <id property="id" column="id" />
+      <result property="name" column="name" />
+    </association>
+  </resultMap>
+
+  <!-- 
+    ===
+    sql
+    ===
+   -->
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -68,7 +94,27 @@
   <sql id="Base_Column_List">
     id, name, email, department_id
   </sql>
+
+  <!-- 
+    ======
+    select
+    ======
+   -->
   <select id="selectByExample" parameterType="com.example.ssm.pojo.EmployeeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from employees
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExampleWithDepartment" parameterType="com.example.ssm.pojo.EmployeeExample" resultMap="WithDepartmentResultMap">
     select
     <if test="distinct">
       distinct
@@ -88,6 +134,18 @@
     from employees
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectByPrimaryKeyWithDepartment" parameterType="java.lang.Integer" resultMap="WithDepartmentResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from employees
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <!-- 
+    ======
+    delete
+    ======
+   -->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from employees
     where id = #{id,jdbcType=INTEGER}
@@ -98,6 +156,12 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
+
+  <!-- 
+    =======
+    insert
+    =======
+   -->
   <insert id="insert" parameterType="com.example.ssm.pojo.Employee">
     insert into employees (id, name, email, 
       department_id)
@@ -135,12 +199,24 @@
       </if>
     </trim>
   </insert>
+
+  <!-- 
+    ======
+    count
+    ======
+   -->
   <select id="countByExample" parameterType="com.example.ssm.pojo.EmployeeExample" resultType="java.lang.Long">
     select count(*) from employees
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
+
+  <!-- 
+    =======
+    update
+    =======
+   -->
   <update id="updateByExampleSelective" parameterType="map">
     update employees
     <set>

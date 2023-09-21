@@ -9,6 +9,8 @@ public class Employee {
 
     private Integer departmentId;
 
+    private Department department;
+
     public Employee() {
     }
 
@@ -49,5 +51,19 @@ public class Employee {
 
     public void setDepartmentId(Integer departmentId) {
         this.departmentId = departmentId;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee {\n  id = " + id + ",\n  name = " + name + ",\n  email = " + email + ",\n  departmentId = "
+                + departmentId + ",\n  department = " + department + "\n}";
     }
 }

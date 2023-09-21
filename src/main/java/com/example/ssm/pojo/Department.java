@@ -29,4 +29,9 @@ public class Department {
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
     }
+
+    @Override
+    public String toString() {
+        return "Department {\n  id = " + id + ",\n  name = " + name + "\n}";
+    }
 }
