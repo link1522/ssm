@@ -9,6 +9,16 @@ public class Employee {
 
     private Integer departmentId;
 
+    public Employee() {
+    }
+
+    public Employee(Integer id, String name, String address, Integer departmentId) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+        this.departmentId = departmentId;
+    }
+
     public Integer getId() {
         return id;
     }

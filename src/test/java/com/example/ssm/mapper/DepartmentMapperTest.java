@@ -16,8 +16,6 @@ public class DepartmentMapperTest {
 
     @Test
     public void testInsertDepartment() {
-        System.out.println(departmentMapper);
-
         departmentMapper.insertSelective(new Department(null, "品保部"));
     }
 }

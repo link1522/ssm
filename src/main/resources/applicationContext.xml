@@ -43,6 +43,12 @@
   </bean> -->
   <mybatis:scan base-package="com.example.ssm.mapper" />
 
+  <!-- 用來批量操作的 sqlSession -->
+  <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+    <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
+    <constructor-arg name="executorType" value="BATCH"></constructor-arg>
+  </bean>
+
   <!-- 事務控制的配置 -->
   <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
     <property name="dataSource" ref="druidDataSource"></property>
