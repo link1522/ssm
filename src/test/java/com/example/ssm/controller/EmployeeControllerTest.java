@@ -42,8 +42,7 @@ public class EmployeeControllerTest {
         Object pageInfoAttribute = request.getAttribute("pageInfo");
         if (pageInfoAttribute instanceof PageInfo<?>) {
             PageInfo<?> pageInfo = (PageInfo<?>) pageInfoAttribute;
-            int pageNum = pageInfo.getPageNum();
-            System.out.println(pageNum);
+            System.out.println(pageInfo);
         }
     }
 }
