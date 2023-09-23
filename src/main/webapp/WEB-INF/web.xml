@@ -39,13 +39,20 @@
     <url-pattern>/*</url-pattern>
   </filter-mapping>
 
+  <!-- 初始化 spring -->
+  <!-- 要有配 ContextLoaderListener spring 配置才會生效 -->
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+
   <servlet>
     <servlet-name>dispatcherServlet</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
     <init-param>
+      <!-- 預設採用 /WEB-INF/[servlet-name]-servlet.xml -->
       <param-name>contextConfigLocation</param-name>
       <!-- spring mvc 配置檔案位置 -->
-      <param-value>/WEB-INF/dispatcherServlet.xml</param-value>
+      <param-value>classpath:dispatcherServlet.xml</param-value>
     </init-param>
   </servlet>
 
