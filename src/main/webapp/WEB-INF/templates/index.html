@@ -29,15 +29,21 @@
             <th>id</th>
             <th>name</th>
             <th>email</th>
+            <th>department</th>
             <th>action</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr th:each="employee : ${pageInfo.list}">
             <td><input type="checkbox" name="" id="" /></td>
-            <td>1</td>
-            <td>hello</td>
-            <td>hello@gmail.com</td>
+            <td th:text="${employee.id}">1</td>
+            <td th:text="${employee.name}">hello</td>
+            <td th:text="${employee.email}">hello@gmail.com</td>
+            <td
+              th:text="${employee.department} ? ${employee.department.name} : 'null'"
+            >
+              人事部
+            </td>
             <td class="d-flex gap-2">
               <button type="button" class="btn btn-secondary btn-sm">
                 Edit
@@ -51,21 +57,64 @@
       </table>
 
       <div class="d-flex justify-content-between align-items-center">
-        <p>current page: <span th:text="${pageInfo.pageNum}">1</span></p>
+        <p>
+          page: <span th:text="${pageInfo.pageNum}">1</span> /
+          <span th:text="${pageInfo.pages}">10</span>
+        </p>
 
         <nav>
           <ul class="pagination justify-content-center">
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Previous">
+            <li
+              class="page-item"
+              th:class="${pageInfo.pageNum} == 1 ? 'disabled'"
+            >
+              <a class="page-link" th:href="@{/employees (page=1)}">
+                first page
+              </a>
+            </li>
+            <li
+              class="page-item"
+              th:class="${!pageInfo.hasPreviousPage} ? 'disabled'"
+            >
+              <a
+                class="page-link"
+                th:href="@{/employees (page=${pageInfo.pageNum - 1})}"
+              >
                 <span>&laquo;</span>
               </a>
             </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
+            <li
+              class="page-item"
+              th:class="${page} == ${pageInfo.pageNum} ? 'active'"
+              th:each="page : ${pageInfo.navigatepageNums}"
+            >
+              <a
+                class="page-link"
+                th:href="@{/employees (page=${page})}"
+                th:text="${page}"
+                >1</a
+              >
+            </li>
+            <li
+              class="page-item"
+              th:class="${!pageInfo.hasNextPage} ? 'disabled'"
+            >
+              <a
+                class="page-link"
+                th:href="@{/employees (page=${pageInfo.pageNum + 1})}"
+              >
+                <span>&raquo;</span>
+              </a>
+            </li>
+            <li
+              class="page-item"
+              th:class="${pageInfo.pageNum} == ${pageInfo.pages} ? 'disabled'"
+            >
+              <a
+                class="page-link"
+                th:href="@{/employees (page=${pageInfo.pages})}"
+              >
+                last page
               </a>
             </li>
           </ul>

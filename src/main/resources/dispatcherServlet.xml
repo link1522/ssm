@@ -48,7 +48,7 @@
     <property name="order" value="2" />
   </bean>
 
-  <mvc:view-controller path="/" view-name="index" />
+  <mvc:view-controller path="/" view-name="redirect:/employees" />
   <!-- 開放對靜態資源的訪問 -->
   <mvc:default-servlet-handler />
   <!-- 開啟 mvc 註解驅動，以解決 view-controller 使註解失效問題 -->
