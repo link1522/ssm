@@ -18,4 +18,12 @@ public class EmployeeService {
         List<Employee> employeeList = employeeMapper.selectByExampleWithDepartment(null);
         return employeeList;
     }
+
+    public int create(String name, String email, Integer departmentId) {
+        Employee employee = new Employee(null, name, email, departmentId);
+
+        int affectedRows = employeeMapper.insert(employee);
+
+        return affectedRows;
+    }
 }

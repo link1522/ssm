@@ -17,4 +17,5 @@ public class DepartmentService {
         List<Department> departmentList = departmentMapper.selectByExample(null);
         return departmentList;
     }
+
 }

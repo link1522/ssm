@@ -1,10 +1,13 @@
 package com.example.ssm.pojo;
 
+import javax.validation.constraints.Email;
+
 public class Employee {
     private Integer id;
 
     private String name;
 
+    @Email
     private String email;
 
     private Integer departmentId;
